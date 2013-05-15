@@ -67,7 +67,7 @@ class DaumBlogs(BasicNewsRecipe):
 		if self.username is not None and self.password is not None:
 			br.open('http://login.daum.net/accounts/loginform.do')
 			br.select_form(name='loginform')
-			br['id']   = self.username
+			br['id'] = self.username
 			br['pw'] = self.password
 			br.submit()
 		return br

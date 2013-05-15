@@ -8,7 +8,7 @@ class Eunhasun(BasicNewsRecipe):
 	publisher = u'은하선'
 	publication_type = 'blog'
 	
-	oldest_article = 14
+	oldest_article = 140
 	max_articles_per_feed = 100
 
 	remove_javascript   = True

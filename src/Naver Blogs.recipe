@@ -45,7 +45,7 @@ class NaverBlogs(BasicNewsRecipe):
 		soup = self.index_to_soup(url)
 	
 		if url.startswith('http://blog.naver.com'):
-			mainFrame = soup.find('frame', attrs={'id':'mainFrame'})
+			mainFrame = soup.find('frame', attrs={'name':'mainFrame'})
 			mainPage = 'http://blog.naver.com' + mainFrame['src']
 			return mainPage.replace("PostView.nhn", "PostPrint.nhn");
 		
@@ -60,11 +60,13 @@ class NaverBlogs(BasicNewsRecipe):
 		
 
 	def get_browser(self):
-		br = BasicNewsRecipe.get_browser()
+		br = BasicNewsRecipe.get_browser(self)
 		if self.username is not None and self.password is not None:
 			br.open('http://nid.naver.com/nidlogin.login?mode=form')
 			br.select_form(name='frmNIDLogin')
-			br['id']   = self.username
-			br['pw'] = self.password
+			control_id = br.find_control(type = 'text', id = 'id') 
+			control_id.value = self.username;
+			control_pw = br.find_control(type = 'password', id = 'pw') 
+			control_pw.value = self.password;
 			br.submit()
 		return br
