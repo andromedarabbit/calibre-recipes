@@ -1,0 +1,7 @@
+class BasicUserRecipe1331518550(AutomaticNewsRecipe):
+    title          = u'ITWorld Korea'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'ITWorld Korea', u'http://www.itworld.co.kr/rss/feed')]

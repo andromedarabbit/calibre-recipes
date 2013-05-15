@@ -1,0 +1,7 @@
+class BasicUserRecipe1330230194(AutomaticNewsRecipe):
+    title          = u"SeongTae's Blogs"
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'\ud648 \uc8fc\uc778', u'http://www.sysnet.pe.kr/rss/bbs_xAdmincolumn.xml'), (u'\ubaa8\uc544 \ub193\uc740 \uc790\ub8cc', u'http://www.sysnet.pe.kr/rss/bbs_xInternet.xml'), (u'\ud504\ub85c\uadf8\ub798\ubc0d', u'http://www.sysnet.pe.kr/rss/bbs_xTiptrk.xml')]

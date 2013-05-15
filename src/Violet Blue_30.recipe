@@ -1,0 +1,13 @@
+class VioletBlue(BasicNewsRecipe):
+	title          = u'Violet Blue'
+	oldest_article = 7
+	max_articles_per_feed = 100
+	auto_cleanup = True
+
+	feeds          = [(u'Violet Blue', u'http://feeds2.feedburner.com/VioletBlueOpenSourceSex')]
+	
+	publication_type = 'blog'
+	
+
+	def get_cover_url(self):
+		return 'https://lh5.googleusercontent.com/-3k9b5PCko8w/AAAAAAAAAAI/AAAAAAAAC6g/At30MCATT_s/s200-c-k/photo.jpg'

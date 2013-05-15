@@ -1,0 +1,26 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+
+class KoreaHealthLog(BasicNewsRecipe):
+	title			   = u'Korea Health Log'
+	__author__		  = 'Andromeda Rabbit'
+	description		 = 'Psychology Today Blogs'
+	language			= 'en'
+	use_embedded_content = False
+	no_stylesheets	  = True
+	oldest_article	  = 24
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 30
+
+	feeds = [(u'헬스로그 RSS', u'http://www.koreahealthlog.com/rss')]
+
+	remove_tags = [dict(name='div', attrs={'class':'logo'}), dict(name='div', attrs={'class':'search'}), dict(attrs={'class':'addthis_button_print'}), dict(attrs={'class':'adPostTop'}), dict(attrs={'class':'adPostBottom'}), dict(attrs={'class':'ViewPostOfRelCategory'}), dict(attrs={'class':'js-kit-comments'}),
+	dict(attrs={'id':'paging'}), dict(attrs={'class':'sideinfo'}), dict(attrs={'class':'sideBanner'}), dict(attrs={'class':'recentComment'}), dict(attrs={'class':'bottom'}), dict(attrs={'id':'counter'}), dict(attrs={'class':'actionTrail'}), dict(attrs={'class':'trackback'}), dict(name='table', attrs={'background':'/resources/image/sns_bubg.gif'}), dict(name='table', attrs={'bordercolorlight':'#CCCCCC'}), dict(attrs={'align':'center'})]
+
+	
+	def get_cover_url(self):
+		return 'http://www-file.koreahealthlog.com/skin/blog/healthlog2nd/images/logo.gif'
+
+	

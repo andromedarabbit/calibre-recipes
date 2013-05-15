@@ -1,0 +1,7 @@
+class BasicUserRecipe1329188320(AutomaticNewsRecipe):
+    title          = u'The Wall Street Journal - Korea Real Time Korean'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'The Wall Street Journal - Korea Real Time Korean', u'http://realtime.wsj.com/korea/feed/')]

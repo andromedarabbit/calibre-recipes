@@ -1,0 +1,54 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+import urllib2
+
+class DaumBlogs(BasicNewsRecipe):
+	__author__		  = 'Andromeda Rabbit'
+	
+	title			   = u'Hani Blogs'
+	description		 = '한겨례 블로그 모음'
+	language			= 'ko_KR'
+	publication_type = 'blog'
+	
+	use_embedded_content = False
+	oldest_article	  = 31
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 300
+
+	needs_subscription = False
+	recursions = 1
+	
+	feeds = [(u'구본준의 거리 가구', u'http://blog.hani.co.kr/bonbon/rss')]
+
+	no_stylesheets	  = True
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	# remove_attributes = ['style', 'font']	
+	# <P>&nbsp;</P>
+	
+	keep_only_tags = [dict(name='table', attrs={'class':'blog_view'})]
+	
+	# remove_tags = [dict(name='div', attrs={'class':'viewAdbox_b'}), dict(name='iframe'), dict(name='div', attrs={'class':'wBGMPlayer'}), dict(name='div', attrs={'id':'articleBGM'})]
+
+	# remove_tags_before = [dict(id='postListBody')]
+	# remove_tags_after = [dict(id='postListBody')]
+	
+	def get_cover_url(self):
+		return 'http://img.hani.co.kr/section-image/12/news/hani/images/main/logo.gif'
+
+	
+	def print_version(self, url):
+		soup = self.index_to_soup(url)
+	
+		firstFrame = soup.find('iframe', attrs={'name':'papermain'})
+		firstUrl = 'http://blog.hani.co.kr' + firstFrame['src']
+
+		return firstUrl.replace("contents_view.html", "pop_print.html");

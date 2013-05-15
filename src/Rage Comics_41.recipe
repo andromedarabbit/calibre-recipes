@@ -1,0 +1,7 @@
+class BasicUserRecipe1332137875(AutomaticNewsRecipe):
+    title          = u'Rage Comics'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'Rage Comics', u'http://feeds.feedburner.com/memebase/ragecomics')]

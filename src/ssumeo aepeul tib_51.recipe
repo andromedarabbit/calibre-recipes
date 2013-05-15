@@ -1,0 +1,7 @@
+class BasicUserRecipe1335453411(AutomaticNewsRecipe):
+    title          = u'\uc464\uba38 \uc560\ud50c \ud301'
+    oldest_article = 365
+    max_articles_per_feed = 10
+    auto_cleanup = True
+
+    feeds          = [(u'\uc464\uba38 \uc560\ud50c \ud301', u'http://feeds.feedburner.com/SsumerMediaMission')]

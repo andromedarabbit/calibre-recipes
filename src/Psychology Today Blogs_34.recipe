@@ -1,0 +1,38 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+
+class PsychologyTodayBlogs(BasicNewsRecipe):
+	title			   = u'Psychology Today Blogs'
+	__author__		  = 'Andromeda Rabbit'
+	description		 = 'Psychology Today Blogs'
+	language			= 'en'
+	use_embedded_content = False
+	no_stylesheets	  = True
+	oldest_article	  = 24
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 100
+
+	feeds = [(u'Psychology Today Blogs', u'http://www.psychologytoday.com/front/feed')]
+
+	remove_tags = [dict(attrs={'class':'print-footer'}), dict(attrs={'class':'print-hr'}), dict(attrs={'class':'print-source_url'}), dict(attrs={'class':'print-links'}),
+	dict(attrs={'class':'print-site_name'})]
+
+	
+	def get_cover_url(self):
+		return 'http://psychologytoday.com/sites/all/themes/pt_www/images/logo.gif'
+
+	
+	def print_version(self, url):
+		soup = self.index_to_soup(url)
+		regex = re.compile(r'^node-(\d+)$', re.I)
+		print_url = url
+		
+		for tag in soup.findAll('div', attrs={'id':regex}):
+			if tag is not None:
+				m = regex.search(tag['id'])
+				if m:
+					print_url = 'http://www.psychologytoday.com/print/' + m.group(1)
+		
+		return print_url

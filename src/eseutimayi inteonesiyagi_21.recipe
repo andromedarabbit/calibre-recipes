@@ -1,0 +1,7 @@
+class BasicUserRecipe1329444608(AutomaticNewsRecipe):
+    title          = u'\uc5d0\uc2a4\ud2f0\ub9c8\uc758 \uc778\ud130\ub137\uc774\uc57c\uae30'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'\uc5d0\uc2a4\ud2f0\ub9c8\uc758 \uc778\ud130\ub137\uc774\uc57c\uae30', u'http://estima.wordpress.com/feed/')]

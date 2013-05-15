@@ -1,0 +1,37 @@
+class Eunhasun(BasicNewsRecipe):
+	__author__ = 'Andromeda Rabbit'
+	
+	title          = u'은하선의 빈공간'
+	description = u'스물넷, 섹스를 하고 글을 쓰고 올리는 비어있는 공간입니다.'
+	tags = u'sex, 섹스, adult, 성인, blog, 블로그'
+		
+	publisher = u'은하선'
+	publication_type = 'blog'
+	
+	oldest_article = 14
+	max_articles_per_feed = 100
+
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	
+	auto_cleanup = False
+	no_stylesheets	  = True
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	
+	feeds          = [(u'은하선의 빈공간', u'http://eunhasun.blogspot.com/feeds/posts/default?alt=rss')]
+	
+	# Sets whether a feed has full articles embedded in it. The BBC feeds do not.
+	use_embedded_content = True
+	
+	# Removes empty feeds - why keep them!?
+	remove_empty_feeds = True
+	
+	def get_cover_url(self):
+		return 'http://1.bp.blogspot.com/-TAzLc3Pz0DQ/Tpr6E5TdDaI/AAAAAAAAABM/cC2Hxjrr1Bw/s220/dal.JPG'

@@ -1,0 +1,20 @@
+class PsychologyTodayFeatures(BasicNewsRecipe):
+	title          = u'Psychology Today Features'
+	__author__		  = 'Andromeda Rabbit'
+	description		 = 'Psychology Today Features'
+	language			= 'en'
+	oldest_article = 7
+	max_articles_per_feed = 100
+	auto_cleanup = False
+
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 30
+	
+	use_embedded_content = True
+
+	feeds          = [(u'Psychology Today Features', u'http://www.psychologytoday.com/collections/feed')]
+	
+	def get_cover_url(self):
+		return 'http://psychologytoday.com/sites/all/themes/pt_www/images/logo.gif'
+

@@ -1,0 +1,8 @@
+class IsaoIT(BasicNewsRecipe):
+    title          = u'isao\uc758 IT, \uac8c\uc784\ubc88\uc5ed\uc18c'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+    remove_empty_feeds	= True
+
+    feeds          = [(u'isao\uc758 IT, \uac8c\uc784\ubc88\uc5ed\uc18c', u'http://rss.egloos.com/blog/isao76')]

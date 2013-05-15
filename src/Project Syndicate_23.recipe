@@ -1,0 +1,28 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+
+class ProjectSyndicate(BasicNewsRecipe):
+	title			   = u'Project Syndicate'
+	__author__		  = 'Jay'
+	description		 = 'Project Syndicate'
+	language			= 'en'
+	use_embedded_content = False
+	no_stylesheets	  = True
+	oldest_article	  = 24
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 30
+	needs_subscription = False
+
+	feeds = [
+			 (u'Project Syndicate', u'http://www.project-syndicate.org/rss')
+			 ]
+	 
+	keep_only_tags	 = [dict(name='div', attrs={'itemprop':'articleBody'})]
+	#remove_tags = [dict(name='div', attrs={'class':'action'})]
+
+
+
+	def get_cover_url(self):
+		return 'http://ps-web-images-sites.s3.amazonaws.com/logo_topsmall5.jpg'

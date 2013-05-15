@@ -1,0 +1,73 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+import urllib2
+
+class DaumBlogs(BasicNewsRecipe):
+	__author__		  = 'Andromeda Rabbit'
+	
+	title			   = u'Daum Blogs'
+	description		 = '다음 블로그 모음'
+	language			= 'ko_KR'
+	publication_type = 'blog'
+	
+	use_embedded_content = False
+	oldest_article	  = 31
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 300
+
+	needs_subscription = True
+	recursions = 1
+	
+	feeds = [(u'미친연애', u'http://blog.daum.net/xml/rss/njmusician')]
+
+	no_stylesheets	  = True
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	# remove_attributes = ['style', 'font']	
+	# <P>&nbsp;</P>
+	
+	keep_only_tags = [dict(name='div', attrs={'id':'contentDiv'})]
+	
+	remove_tags = [dict(name='div', attrs={'class':'viewAdbox_b'}), dict(name='iframe'), dict(name='div', attrs={'class':'wBGMPlayer'}), dict(name='div', attrs={'id':'articleBGM'})]
+
+	# remove_tags_before = [dict(id='postListBody')]
+	# remove_tags_after = [dict(id='postListBody')]
+	
+	def get_cover_url(self):
+		return 'http://cfile27.uf.tistory.com/image/204BA8264BC5CBA78EC36F'
+
+	
+	def print_version(self, url):
+		soup = self.index_to_soup(url)
+		# soup = BeautifulSoup(url)
+		#soup = BeautifulSoup(urllib2.urlopen(url))
+	
+		firstFrame = soup.find('frame', attrs={'name':'BlogMain'})
+		firstUrl = 'http://blog.daum.net' + firstFrame['src']
+		#print firstUrl
+
+		#secondSoup = BeautifulSoup(firstUrl)
+		#secondSoup = BeautifulSoup(self.browser.open(firstUrl).read(), convertEntities=BeautifulSoup.HTML_ENTITIES)
+		# secondSoup = BeautifulSoup(urllib2.urlopen(firstUrl))
+		secondSoup = self.index_to_soup(firstUrl)
+		secondFrame = secondSoup.find('iframe', attrs={'title':u'게시글 영역'})
+		#print secondFrame['src']
+		return 'http://blog.daum.net' + secondFrame['src']
+
+	def get_browser(self):
+		br = BasicNewsRecipe.get_browser()
+		if self.username is not None and self.password is not None:
+			br.open('http://login.daum.net/accounts/loginform.do')
+			br.select_form(name='loginform')
+			br['id']   = self.username
+			br['pw'] = self.password
+			br.submit()
+		return br

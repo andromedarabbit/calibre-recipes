@@ -1,0 +1,70 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+
+class NaverBlogs(BasicNewsRecipe):
+	__author__		  = 'Andromeda Rabbit'
+	
+	title			   = u'Naver Blogs'
+	description		 = '네이버 블로그 모음'
+	language			= 'ko_KR'
+	publication_type = 'blog'
+	
+	use_embedded_content = False
+	oldest_article	  = 14
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 300
+
+	needs_subscription = True
+	
+	feeds = [(u'Nam goong & Lims Blog', u'http://blog.rss.naver.com/leonmars.xml'), (u'베비로즈의 cooking & living', u'http://blog.rss.naver.com/jheui13.xml'), (u'둥이맘 문성실의 이야기가 있는 밥상', u'http://moonsungsil.com/rss'), (u'행복한 ogisa', u'http://blog.rss.naver.com/nifilwag.xml'), (u'또라이짱', u'http://ddongpudae.blog.me/rss')]
+
+	no_stylesheets	  = True
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	
+	keep_only_tags = [dict(name='div', attrs={'id':'print_body'})]
+	
+	#remove_tags = [dict(name='div', attrs={'class':'post-btn'}), dict(name='div', attrs={'class':'post_footer_contents'}), dict(name='div', attrs={'class':'post paging1'})]
+
+	# remove_tags_before = [dict(id='postListBody')]
+	# remove_tags_after = [dict(id='postListBody')]
+	
+	def get_cover_url(self):
+		return 'http://mlbpark.donga.com/data/fileUpload/201103/1299229096.jpg'
+
+	
+	def print_version(self, url):
+		soup = self.index_to_soup(url)
+	
+		if url.startswith('http://blog.naver.com'):
+			mainFrame = soup.find('frame', attrs={'id':'mainFrame'})
+			mainPage = 'http://blog.naver.com' + mainFrame['src']
+			return mainPage.replace("PostView.nhn", "PostPrint.nhn");
+		
+		firstFrame = soup.find('frame', attrs={'name':'screenFrame'})
+		firstUrl = firstFrame['src']
+
+		secondSoup = self.index_to_soup(firstUrl)
+		secondFrame = secondSoup.find('frame', attrs={'name':'mainFrame'})
+	
+		mainPage = 'http://blog.naver.com' + secondFrame['src']
+		return mainPage.replace("PostView.nhn", "PostPrint.nhn");
+		
+
+	def get_browser(self):
+		br = BasicNewsRecipe.get_browser()
+		if self.username is not None and self.password is not None:
+			br.open('http://nid.naver.com/nidlogin.login?mode=form')
+			br.select_form(name='frmNIDLogin')
+			br['id']   = self.username
+			br['pw'] = self.password
+			br.submit()
+		return br

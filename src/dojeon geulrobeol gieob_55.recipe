@@ -1,0 +1,26 @@
+class AdvancedUserRecipe1338913181(BasicNewsRecipe):
+	title          = u'도전 글로벌 기업'
+	description		 = '글로벌 리더가 되고자 세계 최고 유수기업에 취업을 위한 영어, 매너, 유학, 취업준비 가이드를 여러분께 제시합니다.'
+	language			= 'ko_KR'
+	publication_type = 'blog'
+
+	use_embedded_content = False
+	oldest_article	  = 31
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 300
+	#auto_cleanup = True
+	no_stylesheets	  = True
+	
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	
+	keep_only_tags = [dict(name='div', attrs={'class':'article'})]
+
+	feeds          = [(u'도전 글로벌 기업', u'http://filldream.tistory.com/rss')]

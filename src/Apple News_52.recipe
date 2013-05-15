@@ -1,0 +1,34 @@
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre.ebooks.BeautifulSoup import BeautifulSoup
+import re
+
+class Apple(BasicNewsRecipe):
+	__author__		  = 'Andromeda Rabbit'
+	
+	title			   = u'Apple News'
+	description		 = '애플 관련 뉴스'
+	language			= 'ko_KR'
+	publication_type = 'blog'
+	
+	use_embedded_content = True
+	oldest_article	  = 31
+	remove_javascript   = True
+	remove_empty_feeds	= True
+	max_articles_per_feed = 300
+
+	needs_subscription = False
+	
+	feeds = [(u'쑤머 애플 팁 | 뉴스 | 리뷰', u'http://feeds.feedburner.com/SsumerMediaMission'), (u'Mac n Life', u'http://feeds.feedburner.com/macnlife')]
+
+	no_stylesheets = True
+	preprocess_regexps = [
+		(re.compile(i[0], re.IGNORECASE | re.DOTALL), i[1]) for i in
+			[ (r'<p[^>]*>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"></span></p>', lambda match: ''),
+				(r'<p><span style=".*?"></span>&nbsp;</p>', lambda match: ''),
+				(r'<p><span style=".*?"><br /></span></p>', lambda match: '')
+				]
+    ]
+	
+
+

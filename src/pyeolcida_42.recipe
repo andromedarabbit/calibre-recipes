@@ -1,0 +1,10 @@
+class AdvancedUserRecipe1332212349(BasicNewsRecipe):
+    title          = u'\ud3bc\uce58\ub2e4'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+	
+    publication_type = 'blog'
+	
+
+    feeds          = [(u'\ud3bc\uce58\ub2e4', u'http://ritgun.tistory.com/rss')]

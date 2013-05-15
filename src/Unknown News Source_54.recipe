@@ -1,0 +1,7 @@
+class BasicUserRecipe1338913038(AutomaticNewsRecipe):
+    title          = u'Unknown News Source'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = []

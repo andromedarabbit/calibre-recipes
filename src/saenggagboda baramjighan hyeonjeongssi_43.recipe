@@ -1,0 +1,25 @@
+class Hyunjung(BasicNewsRecipe):
+	__author__ = 'Andromeda Rabbit'
+	
+	title          = u'생각보다 바람직한 현정씨'
+	description = u'적절한 에로티즘과 소녀적인 판타지가 넘실거리는 로맨틱한 矛盾의 공간'
+	tags = u'sex, 섹스, adult, 성인, blog, 블로그'
+	oldest_article = 100
+	max_articles_per_feed = 100
+	auto_cleanup = True
+
+
+	feeds          = [(u'생각보다 바람직한 현정씨', u'http://desirable-h.tistory.com/rss')]
+	
+	publisher = u'생각보다 바람직한 현정씨'
+	publication_type = 'blog'
+	
+	# Sets whether a feed has full articles embedded in it. The BBC feeds do not.
+	use_embedded_content = False
+	
+	# Removes empty feeds - why keep them!?
+	remove_empty_feeds = True
+	
+
+	def get_cover_url(self):
+		return 'http://cfile28.uf.tistory.com/image/18032C044B90C526358E9E'

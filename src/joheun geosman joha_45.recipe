@@ -1,0 +1,7 @@
+class BasicUserRecipe1333358979(AutomaticNewsRecipe):
+    title          = u'\uc88b\uc740 \uac83\ub9cc \uc88b\uc544'
+    oldest_article = 31
+    max_articles_per_feed = 100
+    auto_cleanup = True
+
+    feeds          = [(u'\uc88b\uc740 \uac83\ub9cc \uc88b\uc544', u'http://rss.egloos.com/blog/dhldnj')]
