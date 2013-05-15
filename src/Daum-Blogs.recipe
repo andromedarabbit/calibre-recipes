@@ -63,7 +63,7 @@ class DaumBlogs(BasicNewsRecipe):
 		return 'http://blog.daum.net' + secondFrame['src']
 
 	def get_browser(self):
-		br = BasicNewsRecipe.get_browser()
+		br = BasicNewsRecipe.get_browser(self)
 		if self.username is not None and self.password is not None:
 			br.open('http://login.daum.net/accounts/loginform.do')
 			br.select_form(name='loginform')
