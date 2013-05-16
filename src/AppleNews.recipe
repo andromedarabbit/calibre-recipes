@@ -18,7 +18,10 @@ class Apple(BasicNewsRecipe):
 
 	needs_subscription = False
 	
-	feeds = [(u'쑤머 애플 팁 | 뉴스 | 리뷰', u'http://feeds.feedburner.com/SsumerMediaMission'), (u'Mac n Life', u'http://feeds.feedburner.com/macnlife')]
+	feeds = [
+        (u'쑤머 애플 팁 | 뉴스 | 리뷰', u'http://feeds.feedburner.com/SsumerMediaMission'),
+        (u'Mac n Life', u'http://feeds.feedburner.com/macnlife')
+        i]
 
 	no_stylesheets = True
 	preprocess_regexps = [
