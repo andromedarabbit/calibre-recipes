@@ -25,4 +25,4 @@ class ProjectSyndicate(BasicNewsRecipe):
 
 
 	def get_cover_url(self):
-		return 'http://ps-web-images-sites.s3.amazonaws.com/logo_topsmall5.jpg'
+		return 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash3/c22.22.275.275/s160x160/21561_276544094480_1266390_n.jpg'
